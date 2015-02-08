@@ -1,12 +1,16 @@
 <div class="panel panel-default" ng-controller="ChatCtrl">
     <div class="panel-heading">Chat</div>
     <div class="panel-body">
-        test
+        <ul id="messageList">
+            <li class="messageLink" ng-repeat="msg in messages">
+                <strong>{{msg.author}}</strong>: {{msg.content}}
+            </li>
+        </ul>
     </div>
     <div class="panel-footer">
         <form class="form-inline" ng-required="true" ng-submit="sendMessage()">
             <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
-            <input type="text" placeholder="Enter to send a msg" ng-model="chatMsg" />
+            <input type="text" placeholder="Chat here" ng-model="chatMsg" />
             <span class="glyphicon glyphicon-cog" aria-hidden="false"></span>
         </form>
     </div>

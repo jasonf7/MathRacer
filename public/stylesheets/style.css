@@ -7,4 +7,13 @@ a {
   color: #00B7FF;
 }
 
+#messageList{
+    list-style-type:none;
+    padding-left:0pt;
+}
+
+.messageLink{
+    margin-bottom: 5px;
+}
+
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }

@@ -3,8 +3,9 @@
  */
 angular.module('mathRacer')
 .controller('MainCtrl', [
-        '$scope',
-        function ($scope) {
-            $scope.title = "MathRacer";
-        }
-    ]);
+    '$scope',
+    'socket',
+    function ($scope, socket) {
+        $scope.title = "MathRacer";
+    }
+]);
