@@ -1,6 +1,10 @@
-<div class="panel panel-default">
+<div class="panel panel-default" ng-controller="OnlineCtrl">
     <div class="panel-heading">Online Users</div>
     <div class="panel-body">
-        test
+        <ul id="userList">
+            <li class="userLink" ng-repeat="user in onlineUsers">
+                <strong>{{user}}</strong>
+            </li>
+        </ul>
     </div>
 </div>

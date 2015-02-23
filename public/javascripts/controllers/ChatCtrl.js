@@ -6,7 +6,7 @@ angular.module('mathRacer')
     '$scope',
     'socket',
     'users',
-    function($scope, socket, users){
+    function($scope, socket){
         $scope.messages = [];
 
         $scope.sendMessage = function(){
@@ -41,6 +41,14 @@ angular.module('mathRacer')
                 };
             }
             $scope.messages.push(msg);
+        });
+
+        socket.on('deleteUser', function(data){
+            var name = data;
+            $scope.messages.push({
+                'author': "Server",
+                'content': data + " left."
+            });
         });
     }
 ]);

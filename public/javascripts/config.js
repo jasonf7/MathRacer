@@ -9,7 +9,12 @@ angular.module('mathRacer', ['ui.router', 'ui.bootstrap', 'btford.socket-io'])
             $stateProvider.state('main', {
                 url: '/main',
                 templateUrl: '/views/main.html',
-                controller: 'MainCtrl'
+                controller: 'MainCtrl',
+                resolve: {
+                    onlinePromise: ['online', function(online){
+                        return online.getAll();
+                    }]
+                }
             });
 
             $urlRouterProvider.otherwise('main');

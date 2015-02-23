@@ -7,7 +7,7 @@ a {
   color: #00B7FF;
 }
 
-#messageList{
+#messageList, #userList{
     list-style-type:none;
     padding-left:0pt;
 }
