@@ -13,6 +13,14 @@ angular.module('mathRacer', ['ui.router', 'ui.bootstrap', 'btford.socket-io'])
                 resolve: {
                     onlinePromise: ['online', function(online){
                         return online.getAll();
+                    }],
+                    queuePromise : ['queue', function(queue){
+                        queue.isEmptyApi();
+                        return queue.getAll();
+                    }],
+                    gamePromise : ['game', function(game){
+                        game.isFullApi();
+                        return game.getAll();
                     }]
                 }
             });

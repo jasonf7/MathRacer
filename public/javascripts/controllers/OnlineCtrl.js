@@ -14,9 +14,9 @@ angular.module('mathRacer')
         );
 
         socket.on('newUser', function(data){
-            if($scope.userName === undefined) {
-                $scope.userName = data;
-            }
+            //if($scope.userName === undefined) {
+            //    $scope.userName = data;
+            //}
             online.getAll();
         });
 

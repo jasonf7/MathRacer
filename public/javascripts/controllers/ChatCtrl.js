@@ -20,9 +20,7 @@ angular.module('mathRacer')
         };
 
         socket.on('newMessage', function(msg){
-            console.log("Received: " + msg.content);
             $scope.messages.push(msg);
-            console.log($scope.messages);
         });
 
         socket.on('newUser', function(data){
@@ -44,11 +42,13 @@ angular.module('mathRacer')
         });
 
         socket.on('deleteUser', function(data){
-            var name = data;
-            $scope.messages.push({
-                'author': "Server",
-                'content': data + " left."
-            });
+            var name = data.name;
+            if(data.from == 'disconnect'){
+                $scope.messages.push({
+                    'author': "Server",
+                    'content': name + " left."
+                });
+            }
         });
     }
 ]);

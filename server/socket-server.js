@@ -13,10 +13,32 @@ module.exports = function(io){
             socket.broadcast.emit('newMessage', msg);
         });
 
+        socket.on('queueChange', function(){
+            socket.broadcast.emit('queueChange');
+        });
+
+        socket.on('playerChange', function(){
+            socket.broadcast.emit('playerChange');
+        });
+
+        socket.on('playerLeave', function(name){
+            io.emit('deleteUser', {
+                from: 'playerLeave',
+                name: name
+            });
+        });
+
+        socket.on('gameJoin', function(name){
+            io.to(usercon.nameToIdMap[name]).emit('gameJoin');
+        });
+
         socket.on('disconnect', function(){
             var name = usercon.idToNameMap[socket.id];
             usercon.deleteUserByID(socket.id);
-            io.emit('deleteUser', name);
+            io.emit('deleteUser', {
+                from: 'disconnect',
+                name: name
+            });
         });
     });
 

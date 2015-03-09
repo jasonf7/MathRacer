@@ -1,7 +1,11 @@
-<div class="panel panel-default">
+<div class="panel panel-default" ng-controller="QueueCtrl">
     <div class="panel-heading">Player Queue</div>
     <div class="panel-body">
-        test
+        <ol id="queueList">
+            <li class="queueLink" ng-repeat="user in queue">
+                <strong>{{user}}</strong>
+            </li>
+        </ol>
     </div>
-    <div class="panel-footer">Join Queue</div>
+    <div class="panel-footer" ng-click="changeQueue()" ng-show="!playing">{{queueButton.text}}</div>
 </div>

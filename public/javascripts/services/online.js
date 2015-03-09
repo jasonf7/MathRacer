@@ -16,7 +16,7 @@ angular.module('mathRacer')
             };
 
             o.changeName = function(oldName, newName){
-                return $http.put('/'+oldName+'/'+newName).success(function(data){
+                return $http.put('/online/'+oldName+'/'+newName).success(function(data){
                     console.log('ChangeName: ' + data);
                 });
             };

@@ -7,5 +7,11 @@ angular.module('mathRacer')
     'socket',
     function ($scope, socket) {
         $scope.title = "MathRacer";
+
+        socket.on('newUser', function(data){
+            if($scope.userName === undefined) {
+                $scope.userName = data;
+            }
+        });
     }
 ]);

@@ -1,29 +1,33 @@
-<div class="container">
+<div class="container" ng-controller="GameCtrl">
     <div class="row" align="center">
         <div class="col-md-1">0</div>
         <div class="col-md-5">1</div>
         <div class="col-md-1">0</div>
     </div>
     <div class="row">
-        <div class="col-md-3">
-            <div class="panel panel-default">
-                <div class="panel-heading">Jason</div>
-                <div class="panel-body">
-                    test
-                    <div class="well">
-                        swag
+        <div ng-repeat="player in players">
+            <div class="col-md-3">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {{player}}
+
+                        <span ng-show=" player == '' ">Waiting on player...</span>
+                        <button type="button" class="btn btn-default"
+                                ng-show=" player != '' && player == userName " ng-click="playerLeave(player)">
+                            Leave
+                        </button>
                     </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-1">vs.</div>
-        <div class="col-md-3">
-            <div class="panel panel-default">
-                <div class="panel-heading">Fang</div>
-                <div class="panel-body">
-                    test
-                    <div class="well">
-                        swag
+                    <div class="panel-body">
+                        test
+                        <div class="well">
+                            swag
+                        </div>
+                    </div>
+                    <div class="panel-footer" ng-show=" player != '' && player == userName ">
+                        <button type="button" class="btn btn-block btn-default"
+                                ng-click="playerReady(player)">
+                            Ready?
+                        </button>
                     </div>
                 </div>
             </div>
