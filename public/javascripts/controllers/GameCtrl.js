@@ -11,7 +11,9 @@ angular.module('mathRacer')
         'queue',
         'game',
         function($scope, socket, queue, game){
-            $scope.ready = false;
+            $scope.readyText = "Ready";
+
+            $scope.playing = false;
 
             $scope.$watch(
                 function() { return game.players; },
@@ -20,16 +22,27 @@ angular.module('mathRacer')
             );
 
             $scope.playerLeave = function(player){
-                socket.emit('playerLeave', player);
+                socket.emit('playerLeave', player.name);
             };
 
             $scope.playerReady = function(player){
-
+                if ($scope.readyText == "Ready") {
+                    game.changePlayerStatus(player.name, "(" + $scope.readyText + ")");
+                    $scope.readyText = "Unready";
+                } else {
+                    game.changePlayerStatus(player.name, "(" + $scope.readyText + ")");
+                    $scope.readyText = "Ready";
+                }
+                socket.emit('playerChange');
             };
 
             socket.on('playerChange', function(){
                 game.getAll();
                 game.isFullApi();
+            });
+
+            socket.on('allReady', function(){
+                $scope.playing = true;
             });
         }
     ]);

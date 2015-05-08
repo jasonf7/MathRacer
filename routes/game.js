@@ -19,6 +19,12 @@ router.post('/:name', function(req, res){
     res.json(manager.playerJoin(name));
 });
 
+router.put('/:name/:status', function(req, res){
+    var name = req.params.name;
+    var status = req.params.status;
+    res.json(manager.changePlayerStatus(name, status));
+});
+
 router.delete('/:name', function(req, res){
     var name = req.params.name;
     res.json(manager.playerLeave(name));

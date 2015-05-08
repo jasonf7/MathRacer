@@ -4,7 +4,8 @@
 angular.module('mathRacer')
     .factory('game', [
         '$http',
-        function($http){
+        'socket',
+        function($http, socket){
             var o = {
                 players : [],
                 isFull : false
@@ -35,6 +36,18 @@ angular.module('mathRacer')
                 });
             };
 
+            o.changePlayerStatus = function(name, status) {
+                return $http.put('/game/' + name + '/' + status).success(function(data){
+                    angular.copy(data, o.players);
+
+                    if (o.checkIsReady()) {
+                        o.changePlayerStatus(o.players[0].name, "(Playing)");
+                        o.changePlayerStatus(o.players[1].name, "(Playing)");
+                        socket.emit('allReady');
+                    }
+                });
+            }
+
             o.isFullApi = function(){
                 $http.get('/game/full').success(function(data){
                     angular.copy(data, o.isFull);
@@ -42,8 +55,12 @@ angular.module('mathRacer')
             };
 
             o.checkIsFull = function(){
-                return o.players.length > 0 && o.players[0] != "" && o.players[1] != "";
+                return o.players.length > 0 && o.players[0].name != "" && o.players[1].name != "";
             };
+
+            o.checkIsReady = function() {
+                return o.players.length > 0 && o.players[0].status == "(Ready)" && o.players[1].status == "(Ready)";
+            }
 
             return o;
         }

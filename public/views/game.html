@@ -1,32 +1,46 @@
 <div class="container" ng-controller="GameCtrl">
     <div class="row" align="center">
-        <div class="col-md-1">0</div>
-        <div class="col-md-5">1</div>
-        <div class="col-md-1">0</div>
+        <div class="col-md-6">Time Left: 30.0s</div>
+    </div>
+    <div class="row" align="center">
+        <div class="col-md-3">0</div>
+        <div class="col-md-3">0</div>
     </div>
     <div class="row">
         <div ng-repeat="player in players">
             <div class="col-md-3">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        {{player}}
+                        {{player.name}}
 
-                        <span ng-show=" player == '' ">Waiting on player...</span>
+                        <span ng-show=" player.name != '' && player.name != userName " >{{player.status}}</span>
+                        <span ng-show=" player.name == '' ">Waiting on player...</span>
                         <button type="button" class="btn btn-default"
-                                ng-show=" player != '' && player == userName " ng-click="playerLeave(player)">
+                                ng-show=" player.name != '' && player.name == userName && !playing " ng-click="playerLeave(player)">
                             Leave
                         </button>
                     </div>
                     <div class="panel-body">
-                        test
-                        <div class="well">
-                            swag
+                        <div ng-show=" player.name != '' && playing" class="well">
+                            <table width="100%">
+                                <tbody>
+                                    <tr align="right">
+                                        <td></td>
+                                        <td>200</td>
+                                    </tr>
+                                    <tr align="right">
+                                        <td>+</td>
+                                        <td>5</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <input type="text" placeholder="Answer" />
                         </div>
                     </div>
-                    <div class="panel-footer" ng-show=" player != '' && player == userName ">
+                    <div class="panel-footer" ng-show=" player.name != '' && player.name == userName && !playing ">
                         <button type="button" class="btn btn-block btn-default"
                                 ng-click="playerReady(player)">
-                            Ready?
+                            {{readyText}}
                         </button>
                     </div>
                 </div>

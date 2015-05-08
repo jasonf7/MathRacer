@@ -32,6 +32,10 @@ module.exports = function(io){
             io.to(usercon.nameToIdMap[name]).emit('gameJoin');
         });
 
+        socket.on('allReady', function(){
+            io.emit('allReady');
+        });
+
         socket.on('disconnect', function(){
             var name = usercon.idToNameMap[socket.id];
             usercon.deleteUserByID(socket.id);
