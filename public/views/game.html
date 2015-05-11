@@ -1,10 +1,10 @@
 <div class="container" ng-controller="GameCtrl">
     <div class="row" align="center">
-        <div class="col-md-6">Time Left: 30.0s</div>
+        <div class="col-md-6" ng-show="!started && playing"><b>Get Ready!</b>  Game starting in {{readyTime}}s</div>
+        <div class="col-md-6" ng-show="started && playing">Time Left: {{gameTime}}s</div>
     </div>
-    <div class="row" align="center">
-        <div class="col-md-3">0</div>
-        <div class="col-md-3">0</div>
+    <div class="row" align="center" ng-show="started">
+        <div ng-repeat="player in players" class="col-md-3">{{player.score}}</div>
     </div>
     <div class="row">
         <div ng-repeat="player in players">
@@ -21,20 +21,24 @@
                         </button>
                     </div>
                     <div class="panel-body">
-                        <div ng-show=" player.name != '' && playing" class="well">
+                        <div ng-show=" player.name != '' && started" class="well">
                             <table width="100%">
                                 <tbody>
                                     <tr align="right">
                                         <td></td>
-                                        <td>200</td>
+                                        <td>{{player.question.operand[0]}}</td>
                                     </tr>
                                     <tr align="right">
-                                        <td>+</td>
-                                        <td>5</td>
+                                        <td>{{player.question.operationSymb}}</td>
+                                        <td>{{player.question.operand[1]}}</td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <input type="text" placeholder="Answer" />
+                            <form ng-submit="answerSubmit(player, player.question.playerAnswer)">
+                                <input type="text" ng-name="player.question.playerAnswer"
+                                       ng-model="player.question.playerAnswer" ng-disabled="player.name != userName"
+                                       ng-change="answerChange(player, player.question.playerAnswer)" placeholder="Answer" />
+                            </form>
                         </div>
                     </div>
                     <div class="panel-footer" ng-show=" player.name != '' && player.name == userName && !playing ">
@@ -45,6 +49,11 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
         </div>
     </div>
 </div>
